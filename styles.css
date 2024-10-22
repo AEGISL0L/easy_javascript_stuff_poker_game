@@ -1,0 +1,27 @@
+ 
+.card-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.card-grid img {
+  width: calc(40% - 20px);
+  max-width: 100px;
+  height: auto;
+  min-width: 60px;
+}
+
+@media (max-width: 600px) {
+  .card-grid img {
+    width: calc(33.33% - 10px);
+  }
+}
+
+@media (max-width: 400px) {
+  .card-grid img {
+    width: calc(50% - 10px);
+  }
+}

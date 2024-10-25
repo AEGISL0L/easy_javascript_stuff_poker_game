@@ -1,123 +1,151 @@
-  document.getElementById('playButton').addEventListener('click', jugar);
+/**
+ * Handles the click event on the "Play" button, initializing a game of poker.
+ * - Clears any previously displayed cards from the card container.
+ * - Deals 5 random cards to the player's hand.
+ * - Checks if the player's hand is a winning combination.
+ * - Displays the result (win or lose) on the webpage.
+ */
+function jugar() {
+  // Function implementation
+}
+document.getElementById("playButton").addEventListener("click", jugar);
 
-  // Define the deck of cards
-  const suits = ['hearts', 'diamonds', 'clubs', 'spades'];
-  const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
-  const deck = [];
+// Define the deck of cards
+const suits = ["hearts", "diamonds", "clubs", "spades"];
+const values = [
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "10",
+  "J",
+  "Q",
+  "K",
+  "A",
+];
+const deck = [];
 
-  for (let suit of suits) {
-      for (let value of values) {
-          deck.push({ suit, value });
-      }
+for (let suit of suits) {
+  for (let value of values) {
+    deck.push({ suit, value });
+  }
+}
+
+function jugar() {
+  // Clear any previously displayed cards
+  const cardsContainer = document.getElementById("card-container");
+  if (cardsContainer) {
+    cardsContainer.innerHTML = "";
+  } else {
+    console.error("Element with id 'card-container' not found");
+    return;
   }
 
-  function jugar() {
-      // Clear any previously displayed cards
-      const cardsContainer = document.getElementById('card-container');
-      if (cardsContainer) {
-          cardsContainer.innerHTML = '';
-      } else {
-          console.error("Element with id 'card-container' not found");
-          return;
-      }
+  // Initialize an empty array for the player's hand
+  const playerHand = [];
 
-      // Initialize an empty array for the player's hand
-      const playerHand = [];
+  // For 5 times:
+  for (let i = 0; i < 5; i++) {
+    // Select a random card from the deck
+    const randomIndex = Math.floor(Math.random() * deck.length);
+    const selectedCard = deck[randomIndex];
 
-      // For 5 times:
-      for (let i = 0; i < 5; i++) {
-          // Select a random card from the deck
-          const randomIndex = Math.floor(Math.random() * deck.length);
-          const selectedCard = deck[randomIndex];
+    // Remove the selected card from the deck
+    deck.splice(randomIndex, 1);
 
-          // Remove the selected card from the deck
-          deck.splice(randomIndex, 1);
+    // Add the card to the player's hand
+    playerHand.push(selectedCard);
 
-          // Add the card to the player's hand
-          playerHand.push(selectedCard);
-
-          // Display the card on the webpage
-          displayCard(selectedCard);
-      }
-
-      // Check if the hand is a winning combination
-      const isWinning = checkWinningHand(playerHand);
-
-      // Display the result (win or lose)
-      displayResult(isWinning);
+    // Display the card on the webpage
+    displayCard(selectedCard);
   }
 
-  function checkWinningHand(hand) {
-      // Sort the hand by card value
-      hand.sort((a, b) => values.indexOf(a.value) - values.indexOf(b.value));
+  // Check if the hand is a winning combination
+  const isWinning = checkWinningHand(playerHand);
 
-      // Check for a pair
-      for (let i = 0; i < hand.length - 1; i++) {
-          if (hand[i].value === hand[i + 1].value) {
-              return true;
-          }
-      }
+  // Display the result (win or lose)
+  displayResult(isWinning);
+}
 
-      // Check for a flush (all cards of the same suit)
-      if (hand.every(card => card.suit === hand[0].suit)) {
-          return true;
-      }
+function checkWinningHand(hand) {
+  // Sort the hand by card value
+  hand.sort((a, b) => values.indexOf(a.value) - values.indexOf(b.value));
 
-      // Check for a straight
-      let isStraight = true;
-      for (let i = 0; i < hand.length - 1; i++) {
-          if (values.indexOf(hand[i + 1].value) - values.indexOf(hand[i].value) !== 1) {
-              isStraight = false;
-              break;
-          }
-      }
-      if (isStraight) {
-          return true;
-      }
-
-      // If no winning combination is found
-      return false;
+  // Check for a pair
+  for (let i = 0; i < hand.length - 1; i++) {
+    if (hand[i].value === hand[i + 1].value) {
+      return true;
+    }
   }
+
+  // Check for a flush (all cards of the same suit)
+  if (hand.every((card) => card.suit === hand[0].suit)) {
+    return true;
+  }
+
+  // Check for a straight
+  let isStraight = true;
+  for (let i = 0; i < hand.length - 1; i++) {
+    if (
+      values.indexOf(hand[i + 1].value) - values.indexOf(hand[i].value) !==
+      1
+    ) {
+      isStraight = false;
+      break;
+    }
+  }
+  if (isStraight) {
+    return true;
+  }
+
+  // If no winning combination is found
+  return false;
+}
 
 function displayCard(card) {
-  if (!card || typeof card !== 'object' || !card.value || !card.suit) {
-      console.error('Invalid card object:', card);
-      return;
+  if (!card || typeof card !== "object" || !card.value || !card.suit) {
+    console.error("Invalid card object:", card);
+    return;
   }
 
   // Create an image element for the card
-  const cardImage = document.createElement('img');
+  const cardImage = document.createElement("img");
 
   // Set the image source to the corresponding card image
   // Adjust the file name format to match the PNG files in the cards directory
   let cardValue = card.value.toLowerCase();
-  if (cardValue === 'j') cardValue = 'jack';
-  if (cardValue === 'q') cardValue = 'queen';
-  if (cardValue === 'k') cardValue = 'king';
-  if (cardValue === 'a') cardValue = 'ace';
+  if (cardValue === "j") cardValue = "jack";
+  if (cardValue === "q") cardValue = "queen";
+  if (cardValue === "k") cardValue = "king";
+  if (cardValue === "a") cardValue = "ace";
 
   cardImage.src = `cards/${cardValue}_of_${card.suit}.png`;
 
   // Append the image to the designated area on the webpage
-  const cardContainer = document.getElementById('card-container');
+  const cardContainer = document.getElementById("card-container");
   if (cardContainer) {
-      cardContainer.appendChild(cardImage);
+    cardContainer.appendChild(cardImage);
   } else {
-      console.error("Element with id 'card-container' not found");
+    console.error("Element with id 'card-container' not found");
   }
 }
 
-  function displayResult(isWinning) {
-      const resultElement = document.getElementById('result');
-      if (resultElement) {
-          if (isWinning) {
-              resultElement.textContent = 'Congratulations! You have a winning hand!';
-              resultElement.style.color = 'green';
-          } else {
-              resultElement.textContent = 'Sorry, you don\'t have a winning hand. Try again!';
-              resultElement.style.color = 'red';
-          }
-      } else {
-          console.error("Element with id 'result' not found");
-      }
+function displayResult(isWinning) {
+  const resultElement = document.getElementById("result");
+  if (resultElement) {
+    if (isWinning) {
+      resultElement.textContent = "Congratulations! You have a winning hand!";
+      resultElement.style.color = "green";
+    } else {
+      resultElement.textContent =
+        "Sorry, you don't have a winning hand. Try again!";
+      resultElement.style.color = "red";
+    }
+  } else {
+    console.error("Element with id 'result' not found");
   }
+}

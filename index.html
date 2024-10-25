@@ -3,32 +3,44 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Interactive Poker Game">
+  <meta name="theme-color" content="#007bff">
   <title>Poker Game</title>
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- AOS CSS -->
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-  <!-- Custom CSS -->
+    
+  <!-- Styles -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body class="bg-light">
-  <div class="container mt-5">
-    <h1 class="text-center mb-4" data-aos="fade-down">Poker Game</h1>
-    <div class="text-center mb-4">
-      <button id="playButton" class="btn btn-primary btn-lg" data-aos="zoom-in">Jugar</button>
-    </div>
-    <div id="card-container" class="card-grid" data-aos="fade-up"></div>
-    <div id="result" class="mt-4 text-center" data-aos="fade-in"></div>
-  </div>
+  <main class="container mt-5">
+      <header>
+          <h1 class="text-center mb-4" data-aos="fade-down">Poker Game</h1>
+      </header>
 
-  <!-- Bootstrap JS -->
+      <section class="game-controls text-center mb-4">
+          <button id="playButton" class="btn btn-primary btn-lg" data-aos="zoom-in">
+              <span class="button-text">Play</span>
+          </button>
+      </section>
+
+      <section class="game-area">
+          <div id="card-container" class="card-grid" data-aos="fade-up"></div>
+          <div id="result" class="mt-4 text-center" data-aos="fade-in"></div>
+      </section>
+  </main>
+
+  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- AOS JS -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <!-- Custom JS -->
   <script src="script.js"></script>
   <script>
-    AOS.init();
+      document.addEventListener('DOMContentLoaded', () => {
+          AOS.init({
+              duration: 800,
+              once: true
+          });
+      });
   </script>
 </body>
 </html>
